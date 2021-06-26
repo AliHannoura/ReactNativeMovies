@@ -29,7 +29,7 @@ const MoviesList = () => {
 
   useEffect(() => {
     tmdbApi("upcoming");
-  }, [styles.activeButton]);
+  }, []);
 
   return (
     <>
