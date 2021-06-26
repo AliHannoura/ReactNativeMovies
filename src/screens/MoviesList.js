@@ -12,12 +12,7 @@ import tmdb from "../api/tmdb";
 
 const MoviesList = () => {
   const [list, setList] = useState([]);
-  const [upcomingButton, setUpcomingButton] = useState(styles.activeButton);
-  const [popularButton, setPopularButton] = useState(styles.inactiveButton);
-  const [topRatedButton, setTopRatedButton] = useState(styles.inactiveButton);
-  const [upcomingText, setUpcomingText] = useState(styles.activeText);
-  const [popularText, setPopularText] = useState(styles.inactiveText);
-  const [topRatedText, setTopRatedText] = useState(styles.inactiveText);
+  const [listType, setListType] = useState("upcoming");
 
   let listRef;
 
@@ -40,49 +35,60 @@ const MoviesList = () => {
     <>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={upcomingButton}
+          style={
+            listType == "upcoming" ? styles.activeButton : styles.inactiveButton
+          }
           onPress={() => {
             tmdbApi("upcoming");
-            setUpcomingButton(styles.activeButton);
-            setPopularButton(styles.inactiveButton);
-            setTopRatedButton(styles.inactiveButton);
-            setUpcomingText(styles.activeText);
-            setPopularText(styles.inactiveText);
-            setTopRatedText(styles.inactiveText);
+            setListType("upcoming");
             listRef.scrollToOffset({ offset: 0 });
           }}
         >
-          <Text style={upcomingText}>Upcoming</Text>
+          <Text
+            style={
+              listType == "upcoming" ? styles.activeText : styles.inactiveText
+            }
+          >
+            Upcoming
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={popularButton}
+          style={
+            listType == "popular" ? styles.activeButton : styles.inactiveButton
+          }
           onPress={() => {
             tmdbApi("popular");
-            setUpcomingButton(styles.inactiveButton);
-            setPopularButton(styles.activeButton);
-            setTopRatedButton(styles.inactiveButton);
-            setUpcomingText(styles.inactiveText);
-            setPopularText(styles.activeText);
-            setTopRatedText(styles.inactiveText);
+            setListType("popular");
             listRef.scrollToOffset({ offset: 0 });
           }}
         >
-          <Text style={popularText}>Popular</Text>
+          <Text
+            style={
+              listType == "popular" ? styles.activeText : styles.inactiveText
+            }
+          >
+            Popular
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={topRatedButton}
+          style={
+            listType == "top_rated"
+              ? styles.activeButton
+              : styles.inactiveButton
+          }
           onPress={() => {
             tmdbApi("top_rated");
-            setUpcomingButton(styles.inactiveButton);
-            setPopularButton(styles.inactiveButton);
-            setTopRatedButton(styles.activeButton);
-            setUpcomingText(styles.inactiveText);
-            setPopularText(styles.inactiveText);
-            setTopRatedText(styles.activeText);
+            setListType("top_rated");
             listRef.scrollToOffset({ offset: 0 });
           }}
         >
-          <Text style={topRatedText}>Top Rated</Text>
+          <Text
+            style={
+              listType == "top_rated" ? styles.activeText : styles.inactiveText
+            }
+          >
+            Top Rated
+          </Text>
         </TouchableOpacity>
       </View>
       <FlatList
